@@ -6,10 +6,16 @@
     {translate('For WYSIWYG, the needed methods are included in the Core.')}
     </div><br />
     <h1>{translate('Manage existing implementations')}</h1>
-    {if is_array($modules)}
+    {if $modules}
     {translate('Module')}:<br />
     <ul>
-        {foreach $modules mod}<li> <a href="{$CAT_ADMIN_URL}/admintools/tool.php?tool=bc_opengraph&amp;bc_og_edit={$mod}">{$mod}</a></li>{/foreach}
+        {foreach $modules mod}
+        <li>
+            {$mod}
+            <a href="{$CAT_ADMIN_URL}/admintools/tool.php?tool=bc_opengraph&amp;bc_og_edit={$mod}">[edit]</a>
+            <a href="{$CAT_ADMIN_URL}/admintools/tool.php?tool=bc_opengraph&amp;bc_og_del={$mod}">[remove]</a>
+        </li>
+        {/foreach}
     </ul>
     {else}{translate('No existing implementations found')}{/if}<br /><br />
 
@@ -20,12 +26,13 @@
         <label for="mod_id">{translate('Module')}</label>
         <select id="mod_id" name="mod_id">
             {foreach $module_list mod}
-            <option value="{$mod.addon_id}">{$mod.name}</option>
+            <option value="{$mod.directory}">{$mod.name}</option>
             {/foreach}
         </select><br />
         <label for="bc_og_file">{translate('File to import')}</label>
         <input type="file" name="bc_og_file" />
-        <input type="submit" name="bc_og_add" value="{translate('Import')}" />
+        <input type="submit" name="bc_og_submit" value="{translate('Import')}" />
+    </form>
 
     <h1>{translate('Add implementation')}</h1>
     {translate('Please note: Implementations are only needed for modules of function "page".')}<br /><br />

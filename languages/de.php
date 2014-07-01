@@ -45,6 +45,7 @@ $LANG = array(
     'Add implementation' => 'Lösung hinzufügen',
     'An error occured!' => 'Es ist ein Fehler aufgetreten!',
     'BlackCat CMS can automatically add the appropriate META attributes to the header. (Such as title, description, etc.)' => 'BlackCat CMS ist in der Lage, die entsprechenden META-Attribute im Seitenheader einzufügen.',
+    'File to import' => 'Import-Datei',
     'For WYSIWYG, the needed methods are included in the Core.' => 'Für WYSIWYG sind die entsprechenden Methoden bereits im Core vorhanden.',
     'Import implementation' => 'Lösung importieren',
     'Manage existing implementations' => 'Bestehende Lösungen bearbeiten',

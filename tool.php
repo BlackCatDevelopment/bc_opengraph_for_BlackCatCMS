@@ -71,7 +71,7 @@ elseif(CAT_Helper_Validate::sanitizeGet('bc_og_edit'))
 {
     echo bc_og_edit(CAT_Helper_Validate::sanitizeGet('bc_og_edit'));
 }
-// ---------- Add ----------
+// ---------- Save ----------
 elseif(CAT_Helper_Validate::sanitizePost('bc_og_save'))
 {
     $mod_id = CAT_Helper_Validate::sanitizePost('mod_id');
@@ -90,6 +90,39 @@ elseif(CAT_Helper_Validate::sanitizePost('bc_og_save'))
             array('msg'=>'PHP syntax error! Unable to save the code!')
         ) . bc_og_edit($addon['directory'],$code);
     }
+}
+// ---------- Delete ----------
+elseif(CAT_Helper_Validate::sanitizeGet('bc_og_del'))
+{
+    // in fact, we just rename the file
+    $mod_id = CAT_Helper_Validate::sanitizeGet('bc_og_del');
+    $addon  = CAT_Helper_Addons::getAddonDetails($mod_id);
+    if(file_exists(CAT_PATH.'/modules/'.$addon['directory'].'/getfirstimage.php'))
+        rename(CAT_PATH.'/modules/'.$addon['directory'].'/getfirstimage.php',CAT_PATH.'/modules/'.$addon['directory'].'/getfirstimage.bak');
+    bc_og_show();
+}
+// ---------- Import ----------
+elseif(isset($_FILES['bc_og_file']))
+{
+    $file  = CAT_Helper_Upload::getInstance($_FILES['bc_og_file']);
+    $file->process(CAT_PATH.'/temp');
+    $zip   = CAT_Helper_Zip::getInstance($file->file_dst_pathname);
+    $files = $zip->extract();
+    if(!$zip->errorCode() == 0)
+        echo $parser->get(
+            'error.tpl',
+            array('msg'=>'Upload failed! ZIP error: '.$zip->errorInfo(1))
+        );
+    else
+    {
+        if(isset($files[0]) && $files[0]['stored_filename'] == 'getfirstimage.php')
+        {
+            copy($files[0]['filename'],CAT_PATH.'/modules/'.CAT_Helper_Validate::sanitizePost('mod_id').'/getfirstimage.php');
+        }
+        $file->clean();
+        unlink($files[0]['filename']);
+    }
+    bc_og_show();
 }
 else
 {
