@@ -12,8 +12,8 @@
         {foreach $modules mod}
         <li>
             {$mod}
-            <a href="{$CAT_ADMIN_URL}/admintools/tool.php?tool=bc_opengraph&amp;bc_og_edit={$mod}">[edit]</a>
-            <a href="{$CAT_ADMIN_URL}/admintools/tool.php?tool=bc_opengraph&amp;bc_og_del={$mod}">[remove]</a>
+            <a href="{$CAT_ADMIN_URL}/admintools/tool.php?tool=bc_opengraph&amp;bc_og_edit={$mod}">[{translate('edit')}]</a>
+            <a href="{$CAT_ADMIN_URL}/admintools/tool.php?tool=bc_opengraph&amp;bc_og_del={$mod}">[{translate('remove')}]</a>
         </li>
         {/foreach}
     </ul>
